@@ -8,14 +8,11 @@ import Logo from '../assets/logo_secondary.svg'
 import { Filter } from '../components/Filter';
 import { Button } from '../components/Button';
 import { Order, OrderProps } from '../components/Order';
-import { color } from 'native-base/lib/typescript/theme/styled-system';
 
 export function Home() {
 
     const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('closed');
-    const [orders, serOrders] = useState<[OrderProps]>([
-
-    ])
+    const [orders, serOrders] = useState<[OrderProps]>()
     const { colors } = useTheme();
 
     return (
