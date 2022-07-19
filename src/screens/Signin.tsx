@@ -35,7 +35,7 @@ export function SignIn() {
                 InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}
                 secureTextEntry
             />
-            <Button title="Entrar" mt={8} w="full" onPress={handleSignIn()} />
+            <Button title="Entrar" mt={8} w="full" />
         </VStack>
     )
 }
