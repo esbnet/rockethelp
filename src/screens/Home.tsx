@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-import { VStack, HStack, IconButton, useTheme, Text, Heading, FlatList, Center } from 'native-base'
+import {
+    VStack, HStack, IconButton, useTheme, Text,
+    Heading, FlatList, Center
+} from 'native-base'
+import { useNavigation } from '@react-navigation/native';
 import { SignOut, ChatTeardropText } from 'phosphor-react-native'
 
 import Logo from '../assets/logo_secondary.svg'
@@ -12,8 +16,23 @@ import { Order, OrderProps } from '../components/Order';
 export function Home() {
 
     const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('closed');
-    const [orders, serOrders] = useState<[OrderProps]>()
+
+    const [orders, serOrders] = useState<[OrderProps]>([
+        { id: '1', patrimony: '123', when: '25/03/1971', status: "closed" },
+        { id: '2', patrimony: '456', when: '25/03/1971', status: "open" },
+    ])
+
     const { colors } = useTheme();
+
+    const navigarion = useNavigation();
+
+    function handleNewOrder() {
+        navigarion.navigate('new');
+    }
+
+    function handleEditOrder(orderId: string) {
+        navigarion.navigate('details', { orderId });
+    }
 
     return (
         <VStack flex={1} pb={6} bg="gray.700" alignItems={"center"}>
@@ -24,7 +43,7 @@ export function Home() {
                 bg="gray.600"
                 pt={12}
                 pb={5}
-                px={6}
+                px={8}
             >
                 <Logo />
                 <IconButton
@@ -32,12 +51,14 @@ export function Home() {
                 />
             </HStack>
 
-            <VStack flex={1} px={6}>
-                <HStack w="full" mt={8} mb={4} justifyContent="space-between" alignItems="center">
+            <VStack flex={1} px={8}>
+                <HStack w="full" mt={6} mb={4} justifyContent={"space-between"} alignItems="center">
                     <Heading color="gray.100">
-                        Meus chamados
+                        Solicitações
                     </Heading>
-                    <Text color="gray.200">3</Text>
+                    <Text color="gray.200" textAlign="right">
+                        {orders.length}
+                    </Text>
                 </HStack>
                 <HStack space={3} mb={8}>
                     <Filter
@@ -56,19 +77,19 @@ export function Home() {
                 <FlatList
                     data={orders}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <Order data={item} />}
+                    renderItem={({ item }) => <Order data={item} onPress={() => handleEditOrder(item.id)} />}
                     contentContainerStyle={{ paddingBottom: 100 }}
                     ListEmptyComponent={() => (
                         <Center>
                             <ChatTeardropText color={colors.gray[300]} size={40} />
                             <Text color={"gray.300"} fontSize="xl" mt={6} textAlign="center">
                                 Você não possui {'\n'}
-                                solicitação {statusSelected ==='open' ? 'em aberto.' : 'finaliza.'}
+                                solicitação {statusSelected === 'open' ? 'em aberto.' : 'finaliza.'}
                             </Text>
                         </Center>
                     )}
                 />
-                <Button title='Nova solicitação' />
+                <Button title='Nova solicitação' onPress={handleNewOrder} />
             </VStack>
         </VStack>
     )

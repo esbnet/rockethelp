@@ -3,10 +3,9 @@ import React from 'react';
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto'
 
 import { THEME } from './src/styles/theme';
-import { SignIn } from './src/screens/Signin';
-import { Home } from './src/screens/Home';
-import { Details } from './src/screens/Details';
-import { Register } from './src/screens/Register';
+
+import { Routes } from './src/routes';
+
 import { Loading } from './src/components/Loading';
 
 export default function App() {
@@ -20,7 +19,7 @@ export default function App() {
         backgroundColor={"transparent"}
         translucent
       />
-      {fontsLoaded ? <Details /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
 }
