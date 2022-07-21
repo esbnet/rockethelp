@@ -22,12 +22,11 @@ import { Loading } from '../components/Loading';
 
 export function Home() {
     const [isLoading, setIsLoading] = useState(true);
-    const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('closed');
+    const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
     const [orders, setOrders] = useState<OrderProps[]>([])
 
-
-    const { colors } = useTheme();
     const navigarion = useNavigation();
+    const { colors } = useTheme();
 
     function handleNewOrder() {
         navigarion.navigate('new');
@@ -68,7 +67,6 @@ export function Home() {
             });
 
         return subscriber;
-
     }, [statusSelected]);
 
     return (
@@ -85,16 +83,16 @@ export function Home() {
                 <Logo />
                 <IconButton
                     icon={<SignOut size={26} color={colors.gray[300]} />}
-                    onPress={() => { handleLogout() }}
+                    onPress={handleLogout}
                 />
             </HStack>
 
-            <VStack flex={1} px={8}>
+            <VStack flex={1} px={9}>
                 <HStack w="full" mt={6} mb={4} justifyContent={"space-between"} alignItems="center">
                     <Heading color="gray.100">
                         Solicitações
                     </Heading>
-                    <Text color="gray.200" textAlign="right">
+                    <Text color="gray.200" >
                         {orders.length}
                     </Text>
                 </HStack>

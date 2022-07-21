@@ -14,7 +14,7 @@ type Props = IPressableProps & {
 
 export function Order({ data, ...rest }: Props) {
     const { colors } = useTheme();
-    const statusColor = data.status === 'open' ? colors.secondary[700] : colors.secondary[300]
+    const statusColor = data.status === 'open' ? colors.secondary[700] : colors.primary[300]
 
     return (
         <Pressable {...rest}>
