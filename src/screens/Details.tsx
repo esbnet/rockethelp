@@ -6,18 +6,18 @@ import firestore from '@react-native-firebase/firestore';
 
 import { OrderFirestoreDTO } from '../DTO/OrderFirestoreDTO';
 
-import { CircleWavyCheck, Hourglass, DesktopTower, Clipboard, ClipboardText } from 'phosphor-react-native';
+import { CircleWavyCheck, Hourglass, DesktopTower, ClipboardText } from 'phosphor-react-native';
 
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { OrderProps } from '../components/Order';
 import { Loading } from '../components/Loading';
+import { Alert } from 'react-native';
 import { CardDatails } from '../components/CardDatails';
 
 
 import { dateFormat } from '../utils/firestoreDateFormat';
-import { Alert } from 'react-native';
 
 type RouteParams = {
     orderId: string
@@ -27,6 +27,11 @@ type OrderDatails = OrderProps & {
     description: string;
     solution: string;
     closed: string;
+}
+
+type AlertProps = {
+    status: "success" | "info" | "error" | "warning",
+    title: string
 }
 
 export function Details() {
@@ -69,7 +74,7 @@ export function Details() {
             .doc(orderId)
             .get()
             .then((doc) => {
-                const { patrimony, description, status, created_at, closed_at, solution } = doc.data();
+                const { patrimony, description, status, create_at, closed_at, solution } = doc.data();
 
                 const closed = closed_at ? dateFormat(closed_at) : null;
 
@@ -79,7 +84,7 @@ export function Details() {
                     description,
                     status,
                     solution,
-                    when: dateFormat(created_at),
+                    when: dateFormat(create_at),
                     closed
                 });
 
@@ -92,8 +97,10 @@ export function Details() {
     }
 
     return (
-        <VStack flex={1} p={6} bg="gray.700">
-            <Header title='Solicitação' />
+        <VStack flex={1} pb={2} bg="gray.700">
+            <Box px={6} bg="gray.600">
+                <Header title='Solicitação' />
+            </Box>
 
             <HStack bg="gray.500" justifyContent="center" p={4}>
                 {
@@ -116,13 +123,13 @@ export function Details() {
             <ScrollView mx={1}>
                 <CardDatails
                     title='equipamento'
-                    description={`Patrimônio ${order.patrimony}`}
+                    description={`Patrimônio :  ${order.patrimony}`}
                     icon={DesktopTower}
                 />
 
                 <CardDatails
                     title='problema'
-                    description={`Patrimônio ${order.description}`}
+                    description={order.description}
                     icon={ClipboardText}
                     footer={`Registrado em ${order.when}`}
                 />
@@ -145,7 +152,7 @@ export function Details() {
             {
                 order.status === 'open' &&
                 <Button
-                    title='Encerrar solicitação'
+                    title='Registrar Solução'
                     mt={5}
                     onPress={handleOrderClose}
                 />

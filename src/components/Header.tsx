@@ -23,6 +23,7 @@ export function Header({ title, ...rest }: Props) {
             bg="gray.600"
             pb={6}
             pt={6}
+            mt={4}
             {...rest}
         >
             <IconButton
@@ -37,6 +38,7 @@ export function Header({ title, ...rest }: Props) {
                 fontSize={24}
                 flex={1}
                 pl={-6}
+                mr={10} 
             >
                 {title}
             </Heading>

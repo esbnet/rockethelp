@@ -46,6 +46,7 @@ export function Home() {
     }
 
     useEffect(() => {
+        orders.length = 0;
         setIsLoading(true);
 
         const subscriber = firestore()
@@ -70,7 +71,7 @@ export function Home() {
     }, [statusSelected]);
 
     return (
-        <VStack flex={1} pb={6} bg="gray.700" alignItems={"center"}>
+        <VStack flex={1} pb={2} bg="gray.700" alignItems={"center"}>
             <HStack
                 w="full"
                 justifyContent={"space-between"}
@@ -88,11 +89,24 @@ export function Home() {
             </HStack>
 
             <VStack flex={1} px={9}>
-                <HStack w="full" mt={6} mb={4} justifyContent={"space-between"} alignItems="center">
+                <HStack w="full" mt={6} mb={4}
+                    justifyContent={"space-between"}
+                    alignItems="center"
+                    borderBottomStyle={'solid'}>
                     <Heading color="gray.100">
                         Solicitações
                     </Heading>
-                    <Text color="gray.200" >
+                    <Text
+                        textAlign={"center"}
+                        fontSize={"xl"}
+                        color={"gray.800"}
+                        rounded="3xl"
+                        bg={statusSelected === "open" ? colors.secondary[700] : colors.primary[300]}
+                        w={30}
+                        h={30}
+                        justifyContent={"center"}
+                        alignItems="center"
+                    >
                         {orders.length}
                     </Text>
                 </HStack>
@@ -130,7 +144,7 @@ export function Home() {
                     />)
                 }
 
-                <Button title='Nova solicitação' onPress={handleNewOrder} />
+                <Button title='Solicitar Serviço' onPress={handleNewOrder} />
             </VStack>
         </VStack>
     )
