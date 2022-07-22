@@ -18,6 +18,7 @@ import { CardDatails } from '../components/CardDatails';
 
 
 import { dateFormat } from '../utils/firestoreDateFormat';
+import { CustonAlert } from '../components/CustonAlert';
 
 type RouteParams = {
     orderId: string
@@ -43,6 +44,8 @@ export function Details() {
     const { colors } = useTheme();
     const route = useRoute();
 
+    
+
     const { orderId } = route.params as RouteParams;
 
     function handleOrderClose() {
@@ -59,12 +62,13 @@ export function Details() {
                 closed_at: firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
-                Alert.alert('Solução', 'Socilitação resolvida e encerrada.')
+                CustonAlert('Solução', 'Socilitação resolvida e encerrada.');
+                // Alert.alert('Solução', 'Socilitação resolvida e encerrada.');
                 navigarion.goBack();
             })
             .catch(err => {
                 console.error("solução : " + err.message);
-                Alert.alert('Solução', 'Não foi possível encerrar a solictação.')
+                Alert.alert('Solução', 'Não foi possível encerrar a solictação.');
             });
     }
 

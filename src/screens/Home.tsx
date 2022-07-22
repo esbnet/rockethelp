@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import {
     VStack, HStack, IconButton, useTheme, Text,
-    Heading, FlatList, Center
+    Heading, FlatList, Center, Box
 } from 'native-base'
 import { useNavigation } from '@react-navigation/native';
 
@@ -88,27 +88,32 @@ export function Home() {
                 />
             </HStack>
 
-            <VStack flex={1} px={9}>
-                <HStack w="full" mt={6} mb={4}
+            <VStack flex={1} px={6}>
+                <HStack
+                    w="full"
+                    mt={6}
+                    mb={4}
                     justifyContent={"space-between"}
                     alignItems="center"
-                    borderBottomStyle={'solid'}>
-                    <Heading color="gray.100">
+                    borderBottomStyle={'solid'}
+                >
+
+                    <Heading color="gray.100" w={"full"}>
                         Solicitações
                     </Heading>
-                    <Text
+                    <Box
                         textAlign={"center"}
-                        fontSize={"xl"}
+                        fontSize={"md"}
                         color={"gray.800"}
                         rounded="3xl"
                         bg={statusSelected === "open" ? colors.secondary[700] : colors.primary[300]}
-                        w={30}
-                        h={30}
                         justifyContent={"center"}
                         alignItems="center"
+                        w={35}
+                        h={35}
                     >
                         {orders.length}
-                    </Text>
+                    </Box>
                 </HStack>
                 <HStack space={3} mb={8}>
                     <Filter
